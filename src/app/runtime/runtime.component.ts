@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Dialog } from '@angular/cdk/dialog';
+import { Component, inject } from '@angular/core';
+import { ErrorHandlerComponent } from '../shared/error-handler/error-handler.component';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-runtime',
@@ -8,11 +11,21 @@ import { Component } from '@angular/core';
   styleUrl: './runtime.component.scss',
 })
 export class RuntimeComponent {
+  public dialog: Dialog = inject(Dialog);
+  private toast: HotToastService = inject(HotToastService);
   public throwTestError(): void {
     throw new Error('Test Error from Runtime Component 🛑');
   }
 
-  public throwTestTypeError(): void {
-
+  public throwAndHandleError(): void {
+    try {
+      const obj: any = {};
+      obj.method();
+    } catch (error) {
+      console.error('Error caught in Runtime Component: ', error);
+      // this.toast.error(
+      //   'Diese Aktion kann derzeit nicht ausgeführt werden. Bitte versuchen Sie es später erneut.'
+      // );
+    }
   }
 }

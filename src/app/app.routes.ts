@@ -27,4 +27,9 @@ export const routes: Routes = [
         (m) => m.ControlFlowComponent
       ),
   },
+  {
+    path: 'forms',
+    loadComponent: () =>
+      import('./forms/forms.component').then((m) => m.FormsComponent),
+  }
 ];

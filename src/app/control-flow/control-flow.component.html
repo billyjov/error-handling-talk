@@ -1,1 +1,37 @@
-<p>control-flow works!</p>
+<!-- <div class="mt-3 mb-3">
+  <app-control-flow-child [todo]="(todo$ | async)"/>
+</div> -->
+
+
+<div class="mt-3">
+  <ng-container *ngIf="!alert.message">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#ID</th>
+          <th scope="col">USER ID</th>
+          <th scope="col">title</th>
+          <th scope="col">Completed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let todo of todos$ | async">
+          <tr>
+            <th scope="row">{{ todo.id }}</th>
+            <td>{{ todo.userId}}</td>
+            <td>{{ todo.title }}</td>
+            <td>{{ todo.completed }}</td>
+            <!-- <td>{{ todo.completed }}</td> -->
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </ng-container>
+  <ng-container *ngIf="!!alert.message">
+    <div class="alert alert-danger" role="alert">
+      {{ alert.message }}
+    </div>
+  </ng-container>
+
+</div>
