@@ -13,7 +13,6 @@ export const routes: Routes = [
       import('./forgotten-inputs/forgotten-inputs.component').then(
         (m) => m.ForgottenInputsComponent
       ),
-    canDeactivate: [formEditGuard],
   },
   {
     path: 'runtime',
@@ -31,5 +30,6 @@ export const routes: Routes = [
     path: 'forms',
     loadComponent: () =>
       import('./forms/forms.component').then((m) => m.FormsComponent),
-  }
+    // canDeactivate: [formEditGuard],
+  },
 ];

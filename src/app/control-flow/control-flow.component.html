@@ -2,6 +2,21 @@
   <app-control-flow-child [todo]="(todo$ | async)"/>
 </div> -->
 
+<!-- Select user in a select field -->
+
+<!-- <div class="mt-3">
+  <select class="form-select" (change)="loadTodos($event.target)">
+    <option value="0">Select a user</option>
+    <option *ngFor="let user of users$ | async" [value]="user.id">
+      {{ user.name }}
+    </option>
+  </select>
+</div>
+
+<pre>
+  {{ userTodos$ | async | json }}
+</pre> -->
+
 
 <div class="mt-3">
   <ng-container *ngIf="!alert.message">

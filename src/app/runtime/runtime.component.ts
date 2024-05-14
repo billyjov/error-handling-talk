@@ -14,7 +14,7 @@ export class RuntimeComponent {
   public dialog: Dialog = inject(Dialog);
   private toast: HotToastService = inject(HotToastService);
   public throwTestError(): void {
-    throw new Error('Test Error from Runtime Component 🛑');
+    throw new Error('Test Error from Runtime Component');
   }
 
   public throwAndHandleError(): void {
@@ -22,10 +22,11 @@ export class RuntimeComponent {
       const obj: any = {};
       obj.method();
     } catch (error) {
-      console.error('Error caught in Runtime Component: ', error);
-      // this.toast.error(
-      //   'Diese Aktion kann derzeit nicht ausgeführt werden. Bitte versuchen Sie es später erneut.'
-      // );
+      // do something with the error
     }
+    // console.error('Error caught in Runtime Component: ', error);
+    // this.toast.error(
+    //   'Diese Aktion kann derzeit nicht ausgeführt werden. Bitte versuchen Sie es später erneut.'
+    // );
   }
 }
