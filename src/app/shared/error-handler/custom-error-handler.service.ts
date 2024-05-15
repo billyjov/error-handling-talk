@@ -7,15 +7,29 @@ export class CustomErrorHandler implements ErrorHandler {
   private dialogService = inject(ErrorDialogService);
 
   handleError(error: any) {
-
     // 🍿Tip: Check if the error was caught by an interceptor
     // if ((error).caughtByInterceptor) {
     //   return;
     // }
-    console.error('An error occurred:', error);
+    // console.error('An error occurred:', error);
     // do something with the exception
 
-    // this.dialogService.openDialog('error');
+    // this.dialogService.openDialog({
+    //   message: 'Ein Fehler ist aufgetreten',
+    //   error: error,
+    // });
+
+    // this.dialogService.getDialogRef()?.afterClosed().subscribe(() => {
+    //   // Reload the page to recover from the error
+    //   window.location.reload();
+    // });
+     if (!navigator.onLine) {
+       this.dialogService.openDialog({
+         message:
+           'Es sieht so aus als ob du offline bist. Bitte überprüfe deine Internetverbindung.',
+         error,
+       });
+     }
 
     console.log('Dialog was not opened');
     // 🍿Tip: If you use webpack based chunks
@@ -34,13 +48,33 @@ export class CustomErrorHandler implements ErrorHandler {
     // console.groupEnd();
 
     // 🍿Tip: If you use Vite based chunks
-    // if (error instanceof TypeError && error.message.includes('Failed to fetch dynamically imported module')) {
+    if (
+      error instanceof TypeError &&
+      error.message.includes('Failed to fetch dynamically imported module')
+    ) {
+      // ONLY FOR DEMO PURPOSES
+      console.error('Chunk failed to load 🛑');
 
-    //   // ONLY FOR DEMO PURPOSES
-    //   console.error('Chunk failed to load 🛑' );
+      if (!navigator.onLine) {
+        console.log('You are offline');
+        const message = 'Es sieht so aus als ob du offline bist. Bitte überprüfe deine Internetverbindung.';
+        this.dialogService.openDialog({
+          message,
+          error,
+        });
+      }
 
-    //   // Reload the page to recover from the error
-    //   // window.location.reload();
-    // }
+      // const message = 'Es sieht so aus als ob du eine ältere Version der Anwendung geladen hast. Bitte lade die Seite neu.';
+      // this.dialogService.openDialog({
+      //   message,
+      //   error,
+      // });
+
+      // this.dialogService.getDialogRef()?.afterClosed().subscribe(() => {
+
+      //   // Reload the page to recover from the error
+      //   window.location.reload();
+      // });
+    }
   }
 }

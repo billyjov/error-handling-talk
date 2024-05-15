@@ -1,0 +1,6 @@
+{
+  "ignore": ["node_modules"],
+  // "watch": ["main.js"],
+  // "exec": "npm run start:server",
+  "ext": "ts"
+}

@@ -1,6 +1,7 @@
 import { Dialog,  } from '@angular/cdk/dialog';
 import { Injectable } from '@angular/core';
 import { ErrorHandlerComponent } from './error-handler.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 
 @Injectable({
@@ -8,16 +9,17 @@ import { ErrorHandlerComponent } from './error-handler.component';
 })
 export class ErrorDialogService {
   private opened = false;
+  public dialogRef: MatDialogRef<ErrorHandlerComponent> | undefined;
 
-  constructor(private dialog: Dialog) {}
+  constructor(private dialog: MatDialog) {}
 
   public openDialog(error: any): void {
     if (!this.opened) {
       this.opened = true;
 
       if (this.dialog?.openDialogs?.length === 0) {
-        console.log('Dialog was opened');
-        const dialogRef = this.dialog.open(ErrorHandlerComponent, {
+        console.log('Dialog was opened with error: ', error);
+        this.dialogRef = this.dialog.open(ErrorHandlerComponent, {
           data: {
             ...error,
           },
@@ -27,15 +29,16 @@ export class ErrorDialogService {
           hasBackdrop: true,
         });
 
-        console.log('Dialog was opened: ', dialogRef);
+        // console.log('Dialog was opened: ', dialogRef);
 
-        // dialogRef.afterClosed().subscribe(() => {
-        //   this.opened = false;
-        // });
-        dialogRef.closed.subscribe(() => {
+        this.dialogRef.afterClosed().subscribe(() => {
           this.opened = false;
         });
       }
     }
+  }
+
+  public getDialogRef(): MatDialogRef<ErrorHandlerComponent> | undefined {
+    return this.dialogRef;
   }
 }
