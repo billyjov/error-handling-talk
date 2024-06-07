@@ -18,10 +18,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       let error = handleServerErrorMessage(err);
 
       // 🍿 Please not twice !!
-      // if (error.status === HttpStatusCode.NotFound) {
-      //   toast.error(error.message);
-      //   Object.assign(error, { caughtByInterceptor: true });
-      // }
+      if (error.status === HttpStatusCode.NotFound) {
+        toast.error(error.message);
+        Object.assign(error, { caughtByInterceptor: true });
+      }
 
       return throwError(() => error);
     })

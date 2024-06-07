@@ -30,6 +30,6 @@ export const routes: Routes = [
     path: 'forms',
     loadComponent: () =>
       import('./forms/forms.component').then((m) => m.FormsComponent),
-    // canDeactivate: [formEditGuard],
+    canDeactivate: [formEditGuard],
   },
 ];

@@ -25,8 +25,8 @@ export class RuntimeComponent {
       // do something with the error
     }
     // console.error('Error caught in Runtime Component: ', error);
-    // this.toast.error(
-    //   'Diese Aktion kann derzeit nicht ausgeführt werden. Bitte versuchen Sie es später erneut.'
-    // );
+    this.toast.error(
+      'Diese Aktion kann derzeit nicht ausgeführt werden. Bitte versuchen Sie es später erneut.'
+    );
   }
 }

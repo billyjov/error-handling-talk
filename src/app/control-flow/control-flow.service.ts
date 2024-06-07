@@ -13,7 +13,7 @@ export class ControlFlowService {
   private toast = inject(HotToastService);
 
   public todos$: Observable<Todo[]> = this.http
-    .get<Todo[]>('https://jsonplaceholder.typicode.com/todos')
+    .get<Todo[]>('https://jsonplaceholder.typicode.com/todosf')
     .pipe(
       // 🍿TIP: Catch error and rethrow error;
       catchError(this.handleError)
@@ -40,12 +40,12 @@ export class ControlFlowService {
       )
       .pipe(
         // 🍿TIP: Catch error and rethrow error not suitable for this case;
-        catchError(this.handleError)
-
-        // catchError(() => {
-        //   this.toast.error(`Sorry, no todos found for user with id ${userId}`);
-        //   return of([]);
-        // })
+        // catchError(this.handleError)
+//
+        catchError(() => {
+          this.toast.error(`Sorry, no todos found for user with id ${userId}`);
+          return of([]);
+        })
       );
   }
 
@@ -54,6 +54,6 @@ export class ControlFlowService {
     // private handleError(error: any): Observable<never> {
     const message = 'Sorry following error ocurred: ' + error.message;
     console.error(error);
-    return throwError(() => message);
+    return throwError(() => error);
   }
 }
